@@ -1,1 +1,1 @@
-- My solution for some problems in different judges
+- Included in this repository are solutions to various problems obtained from different coding judges.
