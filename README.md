@@ -1,1 +1,1 @@
-- My solution for some problem in different judges
+- My solution for some problems in different judges
