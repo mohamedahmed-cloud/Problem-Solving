@@ -1,0 +1,1 @@
+- My solution for some problem in different judges
