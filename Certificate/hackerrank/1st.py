@@ -1,0 +1,1 @@
+# I Was harry up in solution so that I solve the two problem in one file and i remove first problem to solve the next one.
