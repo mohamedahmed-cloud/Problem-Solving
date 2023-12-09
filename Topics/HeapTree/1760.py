@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from typing import Optional, List
 
 class Solution:
@@ -6,6 +5,7 @@ class Solution:
         low, high = 1, 10**9
         def maxOps(max_divide):
             return sum((num -1) // max_divide for num in nums)
+
 
         while low < high:
             mid = (low + high) // 2
