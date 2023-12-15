@@ -4,17 +4,19 @@ class MyCalendarTwo:
 
     def __init__(self):
         self.calendar = deque()
+        self.overlap = deque()
 
     def book(self, start: int, end: int) -> bool:
-        cnt = 0
-        for val in self.calendar:
-            if val[0] > start or val[1] < end:
-                cnt += 1
-                if cnt >= 2:
-                    return False
-            self.calendar.append(val)
-            # print(cnt)
-            return True
+        for s, e in self.overlap:
+            if end > s and start < e:
+                return False
+        for s, e in self.calendar:
+            if end > s and start < e:
+                self.overlap.append((max(s, start), min(e, end)))
+        self.calendar.append((start, end))
+        # print(self.calendar, self.overlap)
+        return True
+        
 
 
 
