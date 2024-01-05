@@ -1,23 +1,26 @@
+
 def query(BITTree,i): 
-	s = 0
+	s = 0 
 	i = i+1
+
 	while i > 0: 
 		s += BITTree[i] 
-		# 2's complement then & with orignal then - => to find child
 		i -= i & (-i) 
 	return s 
 
-
 def update(BITTree , n , i ,v): 
+
 	i += 1
+
 	while i <= n: 
-		BITTree[i] += v
-		# 2's complement then & with orignal then + => to find parent
+		BITTree[i] += v 
 		i += i & (-i) 
 
 
+# Constructs and returns a Binary Indexed Tree for given 
+
 def construct(arr, n): 
-	BITTree = [0]*(n+1)
+	BITTree = [0]*(n+1) 
 	for i in range(n): 
 		update(BITTree, n, i, arr[i]) 
 

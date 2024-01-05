@@ -10,34 +10,37 @@ def svalues():return sys.stdin.readline().strip()
 def test():return int(sys.stdin.readline())
 
 # To find the children
-def query(BITTree, end, indx): 
+def query(BITTree, end): 
 	s = 0
 	while end > 0:
-		# print(end, indx)
-		s += BITTree[end][indx]
-		# 2's complement then & with orignal then - => to find child
-		end -= end & (-end) 
+		s += BITTree[end]
+		end -= end & (-end)
+
 	return s 
 
 # tree, length of tree, index, value for this index
 def update(BITTree , n , indx ,val):
-	indx += 1
 	while indx <= n:
-		tmp = [0, 0]
-		if val & 1:
-			tmp[1] = 1
-		else: tmp[0] = 1
-
-		BITTree[indx] = [BITTree[indx][0] + tmp[0], BITTree[indx][1] + tmp[1]]
-
-		# 2's complement then & with orignal then + => to find parent
+		BITTree[indx] += (val & 1)
 		indx += indx & (-indx) 
+
+def update2(BITTree , n , indx ,val):
+	tmp = 0
+	if (l[indx - 1] & 1 )and not val & 1:
+		tmp = -1
+	if (not l[indx - 1] & 1) and (val & 1):
+		tmp = 1
+	l[indx - 1] = val
+	while indx <= n:
+		BITTree[indx] += tmp
+		indx += indx & (-indx) 
+
 
 # to construct the tree
 def construct(arr, n): 
-	BITTree = [[0, 0]]*(n+1)
-	for i in range(n): 
-		update(BITTree, n, i, arr[i]) 
+	BITTree = [0]*(n+1)
+	for i in range( n): 
+		update(BITTree, n, i + 1, arr[i]) 
 	# print(BITTree)
 	return BITTree 
 
@@ -51,9 +54,13 @@ BITTree = construct(l,n)
 for i in range(test()):
 	a, b, c = mvalues()
 	if a == 0:
-		update(BITTree, n, b, c)
-	else:
-		print(query(BITTree,c, a - 1) - query(BITTree,b - 1 , a -1))
-
-
+		# print(BITTree)
+		update2(BITTree, n, b, c)
+		# print(BITTree)
+	elif a == 2:
+		tmp = query(BITTree, c) - query(BITTree, b - 1)
+		print(tmp)
+	elif a == 1:
+		tmp = query(BITTree,c) - query(BITTree, b - 1)
+		print(c - b + 1 - tmp)
 
