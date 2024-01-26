@@ -1,24 +1,10 @@
-from collections import defaultdict
-class Solution:
-    def countPalindromicSubsequence(self, s: str) -> int:
-        dict = defaultdict(list)
+from collections import Counter
+two_d_array = [[3,1,2,2],[1,4,4,4],[2,4,2,2],[2,5,2,2]]
+l = zip(*two_d_array)
+l = Counter(l)
+ans = 0
 
-        # {"x": [start, end] }
-        # answer is += len(set(s[start +1 : end])
+for i in two_d_array:
+        ans += l[tuple(i)]
 
-        for i, value in enumerate(s):
-            if value in dict:
-                dict[value] = [dict[value][0], i]
-            else:
-                dict[value] = [i, i]
-        ans = 0
-        for key, value in dict.items():
-            start, end = value
-            x = set(s[start + 1 : end])
-            ans += (len(x))
-
-        return ans
-
-slv = Solution()
-s = "tlpjzdmtwderpkpmgoyrcxttiheassztncqvnfjeyxxp"
-print(slv.countPalindromicSubsequence(s))
+print(l, ans)
